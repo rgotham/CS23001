@@ -1,0 +1,3 @@
+milestone 1 --100
+milestone 2 -- [regrade]90 //Postfix progream prints nothing. or saves nothing in output file
+milestone 3 -- 85 //1) last expression of data3-2-1.txt's assembly code is not correct. commmand line option with output file not prints in that file

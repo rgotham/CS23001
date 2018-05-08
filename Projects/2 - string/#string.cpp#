@@ -1,0 +1,245 @@
+/* String: Project 2, Milestone 1
+   Randy Gotham
+   CS23001
+*/
+#include <iostream>
+#include "string.hpp"
+#include <cassert>
+//------------------------------------------
+//Constructors
+//------------------------------------------
+// Allocates memory for one element, sets it to null
+String::String(){
+  stringSize = 1;
+  str = new char[1];
+  str[0] = '\0';
+}
+// creates String('a')
+String::String(char ch) : String(1){
+  str[0] = ch;
+}
+// creates String("abcd")
+String::String(const char ch[]){
+  int len = 0;
+  while(ch[len] != '\0'){
+    len++;
+  }
+  stringSize = len + 1;
+  str = new char[stringSize];
+  for(int i = 0; i < len; ++i){
+    str[i] = ch[i];
+  }
+  str[len] = '\0';
+}
+
+
+String::~String(){
+  delete[] str;
+}
+String::String(int n){
+  stringSize = n + 1;
+  str = new char[stringSize];
+  str[n] = '\0';
+}
+String::String(int n, const char carr[]) : String (n){
+  for(int i = 0; i < length(); ++i){
+    if (carr[i] != '\0')
+      str[i] = carr[i];
+    str[i] = '\0';
+  }
+}
+// copy constructor
+String::String(const String& actual){
+  stringSize = actual.stringSize;
+  str = new char[stringSize];
+  for(int i = 0; i < stringSize; ++i)
+    str[i] = actual.str[i];
+}
+
+//------------------------------------------
+//In-class methods
+//-----------------------------------------
+
+void String::swap(String& rhs){
+  char *tempor_str = str;
+  int tempor_strSize = stringSize;
+  
+  str = rhs.str;
+  stringSize = rhs.stringSize;
+
+  rhs.str = tempor_str;
+  rhs.stringSize = tempor_strSize;
+}
+
+String String::operator=(String rhs){
+  swap(rhs);
+  return *this;
+}
+char String::operator[](int i) const{
+  return str[i];
+}
+
+char& String::operator[](int i){
+  return str[i];
+}
+
+void String::resetCapacity(int n){
+  char * newArr = new int[n = 1];
+  for(int i = 0; str[i] != '\0')
+      newArr[i] = str[i];
+  newArr[i] = '\0';
+  stringSize = n + 1;
+  delete[] str;
+  str = newArr;
+}
+
+int String::length() const{
+  int i = 0;
+  while(str[i] != '\0')
+    i++;
+  return i;
+}
+
+int String::capacity() const{
+  return (stringSize -1);
+}
+
+String String::operator+(const String& rhs) const{
+  String result(length() + rhs.length(), str);
+  int offset = length();
+
+  for(int i = 0; i < rhs.length(); ++i)
+    result[offset + i] = rhs.str[i];
+  return result;
+}
+
+String& String::operator+=(const String rhs){
+  int offset = length();
+  *this = String(length() + rhs.length(), str);
+  for(int i = 0; i < rhs.length(); ++i)
+    str[offset + i] = rhs.str[i];
+  return *this;
+}
+
+bool String::operator==(const String& rhs) const{
+    int i = 0;
+    while((str[i] != '\0') && (str[i] == rhs.str[i]))
+      ++i;
+    return str[i] == rhs.str[i];
+
+}
+
+bool String::operator<(const String& rhs) const{
+  if(length() < rhs.length()){
+    for(int i = 0; i < rhs.length(); ++i){
+      if(str[i] < rhs[i])
+	return true;
+    }
+    return false;
+  }
+}
+
+String String::substring(int start, int end) const{
+  if (start < 0)
+    start = 0;
+  if (start > end)
+    return String();
+  if (start >= length())
+    return String();
+  String result;
+  int i = start;
+  while((i <= end) && (str[i] != '\0')){
+    result.str[i - start] = str[i];
+    ++i;
+  }
+  result.str[i - start] = '\0';
+  return result;
+}
+
+int String::findchar(int pos, char ch) const{
+  if((pos > length()) || (pos < 0))
+    return -1;
+  while((str[pos] != 0) && (str[pos] != ch))
+    ++pos;
+  if(str[pos] == 0)
+    return -1;
+  else
+    return pos;
+}
+
+int String::findstr(int pos, const String& sub) const{
+  int sublen = sub.length();
+  int searchlen = length() - sublen;
+  if((pos > length()) || (pos < 0))
+     return -1;
+  for(int i = pos; i <= searchlen; i++){
+    if(substring(i, (i + sublen -1)) == sub)
+      return i;
+  }
+  return -1;
+  
+}
+
+std::istream& operator>>(std::istream& in, String& rhs){
+  char ch;
+  in.get(ch);
+
+  rhs = String();
+
+  while (ch != '\0' && !in.eof() && ch != '\n'){
+    rhs += ch;
+    in.get(ch);
+  }
+  return in;
+}
+
+std::ostream& operator<<(std::ostream& out, const String& rhs){
+  out << rhs.str;
+  return out;
+}
+
+//-----------------------------------------------
+//non member functions
+//----------------------------------------------
+
+bool operator<=(const String& lhs, const String& rhs){
+  return((lhs < rhs) || (lhs == rhs));
+}
+
+bool operator>(const String& lhs, const String& rhs){
+  return (rhs < lhs);
+}
+
+bool operator>=(const String& lhs, const String& rhs){
+  return ((rhs < lhs) || (lhs == rhs));
+}
+
+bool operator!=(const String& lhs, const String& rhs){
+  return !(lhs == rhs);
+} 
+
+bool operator<(char lhs, const String& rhs){
+  return(String(lhs) < rhs);
+} 
+
+bool operator<(const char lhs[], const String& rhs){
+  return(String(lhs) < rhs);
+}
+
+bool operator==(char lhs, const String& rhs){
+  return(String(lhs) == rhs);
+}
+
+bool operator==(const char lhs[], const String& rhs){
+  return(String(lhs) == rhs);
+}
+
+String operator+(char lhs, const String& rhs){
+  String result(lhs);
+  return (result += rhs);
+}
+
+String operator+(const char lhs[], const String& rhs){
+  String result(lhs);
+  return (result += rhs);
+}

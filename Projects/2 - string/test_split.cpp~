@@ -1,0 +1,76 @@
+#include "string.hpp"
+#include <cassert>
+#include <iostream>
+
+int main() {
+
+  {
+    String str1("owwie oww oww");
+    std::vector<String> result = str1.split(' ');
+    std::vector<String> ans = { "owwie", "oww", "oww" };
+   
+    assert(str1 == "owwie oww oww");
+    assert(result == ans);
+  }
+
+  {
+    String str1("  owwie oww oww");
+    std::vector<String> result = str1.split(' ');
+    std::vector<String> ans = { "", "", "owwie", "oww", "oww" };
+
+    assert(str1 == "  owwie oww oww");
+    assert(result == ans);
+  }
+
+  {
+    String str1("owwie; oww; oww");
+    std::vector<String> result = str1.split(';');
+    std::vector<String> ans = { "owwie", " oww", " oww" };
+
+    assert(str1 == "owwie; oww; oww");
+    assert(result == ans);
+  }
+
+  {
+    String str1;
+    std::vector<String> result = str1.split(' ');
+    std::vector<String> ans = {};
+
+    assert(str1 == "");
+    assert(result == ans);
+  }
+
+  {
+    String str1("  owwie oww oww");
+    std::vector<String> result = str1.split(';');
+    std::vector<String> ans = {};
+
+    assert(str1 == "  owwie oww oww");
+    assert(result == ans);
+  }
+
+
+  {
+    String str1("1/2/3/4/5");
+    std::vector<String> result = str1.split('/');
+    std::vector<String> ans = {"1", "2", "3", "4", "5"};
+
+    assert(str1 == "1/2/3/4/5");
+    assert(result == ans);
+  }
+
+  {
+    String str1("in the beginning of this, the anthropocene era life was pristine, resonating impact the instagator's arrival");
+    // Lyrics from Manufactured Extinct, i.e. not my poetry
+    std::vector<String> result = str1.split(' ');
+    std::vector<String> ans = {"in", "the", "beginning", "of", "this,",
+			       "the", "anthropocene", "era", "life", "was", "pristine,",
+			       "resonating", "impact", "the", "instagator's", "arrival" }
+
+    assert(str1 == "in the beginning of this, the anthropocene era life was pristine, resonating impact the instagator's arrival");
+    assert(result == ans);
+  
+  }
+
+  std::cout << "Done testing split" << std::endl;  
+}

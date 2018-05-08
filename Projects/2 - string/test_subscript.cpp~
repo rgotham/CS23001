@@ -1,0 +1,19 @@
+#include <iostream>
+#include <cassert>
+#include "string.hpp"
+
+int main(){
+
+  {
+    String str1 = "hello";
+    std::cout << str1[0] << '\n';
+    assert(str1[0] == 'h');
+    std::cout << str1[1] << '\n';
+    assert(str1[1] == 'e');
+    std::cout << str1[2] << '\n';
+    assert(str1[2] == 'l');
+    std::cout << str1[3] << '\n';
+    assert(str1[3] == 'l');
+  }
+ 
+}

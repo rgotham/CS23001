@@ -1,0 +1,9 @@
+#include "string.hpp"
+#include "stack.hpp"
+
+int main() {
+  {
+    stack<int> intStack;
+    assert(intStack.empty());
+  }
+}

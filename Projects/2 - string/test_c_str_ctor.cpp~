@@ -1,0 +1,12 @@
+#include "string.hpp"
+#include <cassert>
+
+int main(){
+
+  {
+    String str('a');
+    assert(str == 'a');
+  }
+
+
+}

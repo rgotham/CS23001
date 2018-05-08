@@ -1,0 +1,75 @@
+/* Randy Gotham
+   CS23001
+   Milestone 1
+*/
+
+#include "bigint.hpp"
+
+void bigint::initToZero(){
+  for (int j = 0; j < bigintSize; j++){
+    bigArray[j]=0;
+  }
+}
+
+bigint::bigint(){
+  initToZero();
+}
+
+bigint::bigint(int bigintNum){
+  initToZero();
+  for(int j = 0; j < bigintSize; j++){
+    bigArray[j] = bigintNum % 10;
+    bigintNum /= 10;
+  }
+}
+
+bigint::bigint(const char charArray[]){
+  initToZero();
+  int charArrayCounter = 0;
+  int bigArrayCounter = 0;
+  while (charArray[charArrayCounter] != '\0'){  counte
+    ++charArrayCounter;
+  }
+  --charArrayCounter;
+  while (charArrayCounter >= 0){
+    bigArray[bigArrayCounter] = charArray[charArrayCounter] - '0';
+    --charArrayCounter;
+    ++bigArrayCounter;
+  }
+}
+
+void bigint::debugPrint(std::ostream& out) const{
+  out << "|";
+  for (int j = bigintSize - 1; j >=0; j--){
+    out << bigArray[j] << "|";
+  }
+  out << "\n";
+}
+
+bool bigint::operator==(const bigint& bigintOne) const{
+  for (int j = 0; j < bigintSize; j++){
+    if (bigArray[j] != bigintOne.bigArray[j])
+	return false;
+  }
+  return true; 
+}
+
+std::ostream& operator<<(std::ostream& out, const bigint& rhs){
+  int digitCountToFifty = 1;
+  int lineBreakLimit = bigintSize - 1;
+  while ((rhs.bigArray[lineBreakLimit] == '\0') ||
+	 (rhs.bigArray[lineBreakLimit] == 0)){
+    if(lineBreakLimit == 0)
+      break;
+    --lineBreakLimit;
+  }
+  for(int j = lineBreakLimit; j >= 0; j--){
+    if (digitCountToFifty > 50){
+      digitCountToFifty = 0;
+      out << '\n';
+    }
+    out << rhs.bigArray[j];
+    digitCountToFifty++;
+ }
+  return out;
+}

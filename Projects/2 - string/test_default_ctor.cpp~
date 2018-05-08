@@ -1,0 +1,19 @@
+#include "string.hpp"
+#include <cassert>
+
+int main(){
+
+  {
+    string str;
+    assert(str[0] == '\0');
+    assert(str == "");
+  }
+
+  {
+    string str(50);
+    assert(str[0] == '\0');
+    assert(str == "");
+  }
+
+
+}

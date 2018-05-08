@@ -1,0 +1,56 @@
+/* String: Project 2, Milestone 1
+   Randy Gotham
+   CS23001
+*/
+
+#include "string.hpp"
+#include <cassert>
+//------------------------------------------
+//Constructors
+//------------------------------------------
+String::String(){
+  str[0] = '\0';
+}
+
+String::String(char ch){
+  str[0] = ch;
+  str[1] = '\0';
+}
+
+String::String(const char ch[]){
+  int i = 0;
+  while(s[i] != '\0'){
+    str[i] = ch[i];
+    i++;
+    if (i >= capacity())
+      break;
+  }
+  str[i] = '\0';
+}
+//------------------------------------------
+//In-class methods
+//-----------------------------------------
+
+char String::operator[](int i) const{
+  assert(i >= 0);
+  assert(i < length());
+  return str[i];
+}
+
+char& String::operator[](int i){
+  assert(i >= 0);
+  assert(i < length());
+  return str[i];
+}
+
+int String::length() const{
+  int i = 0;
+  while(str[i] != 0)
+    i++;
+  return i;
+}
+
+int String::capacity() const{
+  return STRING_SIZE -1;
+}
+

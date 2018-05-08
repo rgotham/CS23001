@@ -1,0 +1,3 @@
+milestone 1 --100
+milestone 2 --100
+milestone 3 --90 // Note: Multiply program not compiles

@@ -1,0 +1,15 @@
+#include "stack.hpp"
+#include "utilities.cpp"
+#include "string.hpp"
+
+int main(){
+  std::ifstream infix("data3-1.txt");
+  std::ofstream postfix("test_output.txt");
+  
+  infixToPostfix(infix, postfix);
+
+  infix.close();
+  postfix.close();
+  
+  return 0;
+}

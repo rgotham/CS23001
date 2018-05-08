@@ -1,0 +1,4 @@
+milestone 1 --92 Note: find_ch and find_substring fails instructor test. your function names are not matching with project requrement
+milestone 2 -- 100
+milestone 3 -- 92 Note: Your own test cases are not correct. 
+milestone 4 -- 90 [regraded - outputs all logs with every function + empty entry at end of vector] none of the function works correctly

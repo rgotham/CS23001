@@ -1,0 +1,23 @@
+#include "string.hpp"
+#include "stack.hpp"
+
+int main(){
+  {
+    stack<int> intStack;
+    intStack.push(2);
+    intStack.push(3669);
+    intStack.push(38);
+
+    stack<int> result = intStack;
+    
+    int third  = result.pop();
+    int second = result.pop();
+    int first  = result.pop();
+
+    assert(third  == 38);
+    assert(second == 3669);
+    assert(first  == 2);
+    assert(result.empty());
+    assert(intStack.empty() == false);
+  }
+}
